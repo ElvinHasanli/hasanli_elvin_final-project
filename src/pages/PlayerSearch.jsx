@@ -46,6 +46,18 @@ export default function PlayerSearch() {
       setLoading(false);
     }
   };
+  const addToWatchlist = (player) => {
+    const saved = JSON.parse(localStorage.getItem('cs2_watchlist')) || [];
+    const alreadySaved = saved.find((p) => p.id === player.id);
+    
+    if (!alreadySaved) {
+      const updated = [...saved, player];
+      localStorage.setItem('cs2_watchlist', JSON.stringify(updated));
+      alert(`${player.name} has been added to your watchlist!`);
+    } else {
+      alert(`${player.name} is already in your watchlist.`);
+    }
+  };
 
   return (
     <div>
@@ -97,7 +109,7 @@ export default function PlayerSearch() {
                   <span>No Image Available</span>
                 </div>
               )}
-              <div className="card-body text-light">
+              <div className="card-body text-center d-flex flex-column">
                 <h5 className="card-title fw-bold">{player.name}</h5>
                 <p className="card-text text-light mb-1">
                   Full Name: {player.first_name || ''} {player.last_name || 'N/A'}
@@ -105,9 +117,15 @@ export default function PlayerSearch() {
                 <p className="card-text text-light mb-1">
                   Nationality: {player.nationality || 'Unknown'}
                 </p>
-                <p className="card-text text-light">
+                <p className="card-text text-light mb-3">
                   Current Team: {player.current_team ? player.current_team.name : 'Free Agent / None'}
                 </p>
+                <button 
+                  className="btn btn-success mt-auto w-100"
+                  onClick={() => addToWatchlist(player)}
+                >
+                  Add to Watchlist
+                </button>
               </div>
             </div>
           </div>
