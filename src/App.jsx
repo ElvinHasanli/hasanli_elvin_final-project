@@ -7,7 +7,7 @@ import Watchlist from './pages/Watchlist';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/hasanli_elvin_final-project">
       <Navigation />
       <div className="container">
         <Routes>
